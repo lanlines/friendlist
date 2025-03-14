@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
@@ -44,30 +44,34 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* header */}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Meet my Team</Text>
-      </View>
+      <ScrollView>
+        {/* header */}
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Meet my Team</Text>
+        </View>
 
-      {/* friends list */}
-      <View style={styles.listContainer}>
-        {friends.map(friend => (
-          <TouchableOpacity 
-            key={friend.id} 
-            style={styles.friendItem}
-            onPress={() => showProfile(friend.id)}
-          >
-            <Image 
-              source={friend.profilePic} 
-              style={styles.profileImage} 
-            />
-            <View style={styles.friendInfo}>
-              <Text style={styles.friendName}>{friend.name}</Text>
-              <Text style={styles.friendRole}>{friend.role}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </View>
+        {/* friends list */}
+        <View style={styles.listContainer}>
+          {friends.map(friend => (
+            <TouchableOpacity 
+              key={friend.id} 
+              style={styles.friendItem}
+              onPress={() => showProfile(friend.id)}
+            >
+              <View style={styles.imageContainer}>
+                <Image 
+                  source={friend.profilePic} 
+                  style={styles.profileImage} 
+                />
+              </View>
+              <View style={styles.friendInfo}>
+                <Text style={styles.friendName}>{friend.name}</Text>
+                <Text style={styles.friendRole}>{friend.role}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   friendItem: {
-    padding: 16,
+    padding: 56,
     backgroundColor: '#f0f0f0',
     marginBottom: 10,
     borderRadius: 8,
@@ -101,12 +105,27 @@ const styles = StyleSheet.create({
     elevation: 2,
     flexDirection: 'row',
     alignItems: 'center',
+    width: '100%',
+  },
+  imageContainer: {
+    shadowColor: '#f0f0f0',
+    shadowOffset: { width: 4, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    marginRight: 16,
   },
   profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 16,
+    width: 90,
+    height: 140,
+    borderRadius: 5,
+    // borderWidth: 1,
+    // borderColor: '#f0f0f0',
+    // Left shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   friendInfo: {
     flex: 1,
