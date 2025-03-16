@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native';
 
 // This is the same friends data used in index.tsx
 // In a real app, you might want to move this to a shared file
@@ -64,7 +65,7 @@ export default function FriendProfile() {
     <SafeAreaView style={styles.container}>
       <TouchableOpacity 
         style={styles.backButtonContainer}
-        onPress={() => router.back()}
+        onPress={() => router.push('/')}
       >
         <Text style={styles.backButton}>← Back</Text>
       </TouchableOpacity>
@@ -86,80 +87,130 @@ export default function FriendProfile() {
         </View>
         
       </View>
+      <View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.profilesContainer}>
+          {friends.map((f) => (
+            <TouchableOpacity key={f.id} style={styles.profileCard} onPress={() => router.push(`/friend/${f.id}`)}>
+              <Image source={f.profilePic} style={styles.profilePic} />
+              {/* <Text style={styles.profileName}>{f.name}</Text> */}
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f8f8f8',
-    },
-    backButtonContainer: {
-        padding: 16,
-    },
-    backButton: {
-        color: '#4a90e2',
-        fontSize: 16,
-        fontWeight: '600',
-    },
-    profileContainer: {
-        alignItems: 'center',
-        padding: 20,
-    },
-    avatarPlaceholder: {
-        width: 120,
-        height: 120,
-        borderRadius: 60,
-        backgroundColor: '#4a90e2',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 20,
-        overflow: 'hidden', // Ensure the image is clipped to the placeholder's shape
-    },
-    avatarPic: {
-        width: '100%',
-        height: '100%',
-        resizeMode: 'cover', // Ensure the image covers the entire placeholder
-    },
-    name: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 6,
-    },
-    role: {
-        fontSize: 18,
-        color: '#666',
-        marginBottom: 20,
-    },
-    infoSection: {
-        width: '100%',
-        marginBottom: 20,
-        backgroundColor: 'white',
-        padding: 16,
-        borderRadius: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-        elevation: 2,
-    },
-    bioHeading: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 8,
-    },
-    bio: {
-        fontSize: 16,
-        lineHeight: 24,
-    },
-    contactHeading: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 8,
-    },
-    contactInfo: {
-        fontSize: 16,
-        marginBottom: 4,
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f8f8',
+  },
+  backButtonContainer: {
+    padding: 16,
+  },
+  backButton: {
+    color: '#4a90e2',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  profileContainer: {
+    alignItems: 'center',
+    padding: 20,
+  },
+  avatarPlaceholder: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: '#4a90e2',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    overflow: 'hidden', // Ensure the image is clipped to the placeholder's shape
+  },
+  avatarPic: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover', // Ensure the image covers the entire placeholder
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 6,
+  },
+  role: {
+    fontSize: 18,
+    color: '#666',
+    marginBottom: 20,
+  },
+  infoSection: {
+    width: '100%',
+    marginBottom: 20,
+    backgroundColor: 'white',
+    padding: 16,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  bioHeading: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  bio: {
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  contactHeading: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  contactInfo: {
+    fontSize: 16,
+    marginBottom: 4,
+  },
+  profilesContainer: {
+    padding: 16,
+  },
+  profileCard: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 16,
+    marginRight: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  profilePic: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  button: {
+    backgroundColor: '#4a90e2',
+    padding: 16,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
 });
